@@ -1,0 +1,10 @@
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('#site-nav');
+menuToggle?.addEventListener('click', () => { const open = nav.classList.toggle('open'); menuToggle.setAttribute('aria-expanded', open); });
+nav?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => nav.classList.remove('open')));
+const modal = document.querySelector('#portal-modal'); const modalTitle = document.querySelector('#modal-title');
+document.querySelectorAll('[data-modal]').forEach(button => button.addEventListener('click', () => { modalTitle.textContent = button.dataset.modal === 'student' ? 'Student portal' : 'Parent portal'; modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); }));
+const closeModal = () => { modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); };
+document.querySelector('.modal-close')?.addEventListener('click', closeModal); modal?.addEventListener('click', event => { if (event.target === modal) closeModal(); }); document.addEventListener('keydown', event => { if (event.key === 'Escape') closeModal(); });
+const form = document.querySelector('#contact-form'); form?.addEventListener('submit', event => { event.preventDefault(); const message = form.querySelector('.form-message'); message.textContent = 'Thank you — your enquiry has been received. We will be in touch soon.'; form.reset(); });
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js'));
